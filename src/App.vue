@@ -1,76 +1,63 @@
 <template>
   <v-app id="inspire">
-    <v-system-bar app>
-      <v-spacer></v-spacer>
-
-      <v-icon>mdi-square</v-icon>
-
-      <v-icon>mdi-circle</v-icon>
-
-      <v-icon>mdi-triangle</v-icon>
-    </v-system-bar>
-
-    <v-app-bar app>
+    <v-app-bar app color="cyan" dark flat>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-title>¡Bienvenidx!</v-toolbar-title>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" fixed temporary>
-      <v-card class="mx-auto" width="300">
+    <v-navigation-drawer v-model="drawer" fixed temporary flat>
+      <v-card class="mx-auto" width="300" flat>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="title">
+              Menú
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              ¡Bienvenidx!
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider></v-divider>
         <v-list>
-          <v-list-item>
+          <v-list-item link to="/">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
-
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
 
-          <v-list-group prepend-icon="mdi-account-circle">
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>Admin</v-list-item-title>
-              </v-list-item-content>
-            </template>
+          <v-list-item link to="/categoria">
+            <v-list-item-icon>
+              <v-icon>mdi-table</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Categorías</v-list-item-title>
+          </v-list-item>
 
-            <v-list-item v-for="([title, icon, to], i) in principal" :key="i" link :to="to">
-              <v-list-item-title v-text="title"></v-list-item-title>
+          <v-list-item link to="/articulo">
+            <v-list-item-icon>
+              <v-icon>mdi-content-paste</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Artículos</v-list-item-title>
+          </v-list-item>
 
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-group>
+          <v-list-item link to="/usuario">
+            <v-list-item-icon>
+              <v-icon>mdi-account-multiple-outline</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Usuarios</v-list-item-title>
+          </v-list-item>
 
-          <v-list-group prepend-icon="mdi-account-circle">
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-list-item-title>Actions</v-list-item-title>
-              </v-list-item-content>
-            </template>
-
-            <v-list-item v-for="([title, icon, to], i) in access" :key="i" link :to="to">
-              <v-list-item-title v-text="title"></v-list-item-title>
-
-              <v-list-item-icon>
-                <v-icon v-text="icon"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-group>
         </v-list>
       </v-card>
       <!--  -->
     </v-navigation-drawer>
 
-    <v-main class="grey lighten-2">
+    <v-main>
       <v-container>
         <router-view></router-view>
       </v-container>
     </v-main>
-    <!-- <v-main>
-      <HelloWorld/>
-    </v-main> -->
   </v-app>
 </template>
 
@@ -86,11 +73,6 @@ export default {
 
   data: () => ({
     drawer: null,
-    principal: [
-      ["Categoría", "mdi-account-multiple-outline", "categoria"],
-      ["Artículo", "mdi-cog-outline", "articulo"],
-    ],
-    access: [["Usuarios", "mdi-plus-outline", "usuario"]],
   }),
 };
 </script>

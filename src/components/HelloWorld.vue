@@ -1,151 +1,129 @@
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
-
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >Discord Community</a>
-        </p>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
+  <div id="app">
+    <v-app id="inspire">
+      <v-carousel
+        cycle
+        height="400"
+        hide-delimiter-background
+        show-arrows-on-hover
       >
-        <h2 class="headline font-weight-bold mb-3">
-          What's next?
-        </h2>
+        <v-carousel-item v-for="(slide, i) in slides" :key="i">
+          <v-sheet :color="colors[i]" height="100%">
+            <v-row class="fill-height" align="center" justify="center">
+              <div class="display-3">{{ slide }} Slide</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
 
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
+      <v-container class="grey lighten-4" fluid>
+        <v-row>
+          <v-spacer></v-spacer>
+          <v-col v-for="card in cards" :key="card" cols="12" sm="6" md="4">
+            <v-card>
+              <v-img
+                :src="`https://picsum.photos/200/300?image=${getImage()}`"
+                height="300px"
+              >
+                <span
+                  class="headline white--text pl-4 pt-4 d-inline-block"
+                  v-text="card"
+                ></span>
+              </v-img>
+
+              <v-card-actions class="white justify-center">
+                <v-btn
+                  v-for="(social, i) in socials"
+                  :key="i"
+                  :color="social.color"
+                  class="white--text"
+                  fab
+                  icon
+                  small
+                >
+                  <v-icon>{{ social.icon }}</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
         </v-row>
-      </v-col>
+      </v-container>
 
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Important Links
-        </h2>
+      <v-footer dark padless>
+        <v-card flat tile class="indigo lighten-1 white--text text-center">
+          <v-card-text>
+            <v-btn
+              v-for="icon in icons"
+              :key="icon"
+              class="mx-4 white--text"
+              icon
+            >
+              <v-icon size="24px">
+                {{ icon }}
+              </v-icon>
+            </v-btn>
+          </v-card-text>
 
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
+          <v-card-text class="white--text pt-0">
+            Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.
+            Mauris cursus commodo interdum. Praesent ut risus eget metus luctus
+            accumsan id ultrices nunc. Sed at orci sed massa consectetur
+            dignissim a sit amet dui. Duis commodo vitae velit et faucibus.
+            Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum
+            ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel
+            diam elementum tempor vel ut orci. Orci varius natoque penatibus et
+            magnis dis parturient montes, nascetur ridiculus mus.
+          </v-card-text>
 
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Ecosystem
-        </h2>
+          <v-divider></v-divider>
 
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
+          <v-card-text class="white--text">
+            {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+          </v-card-text>
+        </v-card>
+      </v-footer>
+    </v-app>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'HelloWorld',
+export default {
+  name: "HelloWorld",
+  data() {
+    return {
+      colors: [
+        "indigo",
+        "warning",
+        "pink darken-2",
+        "red lighten-1",
+        "deep-purple accent-4",
+      ],
+      slides: ["First", "Second", "Third", "Fourth", "Fifth"],
+      icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
+      cards: ["Good", "Best", "Finest"],
+      socials: [
+        {
+          icon: "mdi-facebook",
+          color: "indigo",
+        },
+        {
+          icon: "mdi-linkedin",
+          color: "cyan darken-1",
+        },
+        {
+          icon: "mdi-instagram",
+          color: "red lighten-3",
+        },
+      ],
+    };
+  },
+  methods: {
+    getImage () {
+      const min = 550
+      const max = 560
 
-    data: () => ({
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader',
-        },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify',
-        },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-      importantLinks: [
-        {
-          text: 'Documentation',
-          href: 'https://vuetifyjs.com',
-        },
-        {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com',
-        },
-        {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuejs.com/vuetify',
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs',
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify',
-        },
-      ],
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com/components/api-explorer',
-        },
-        {
-          text: 'Select a layout',
-          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-        },
-      ],
-    }),
-  }
+      return Math.floor(Math.random() * (max - min + 1)) + min
+    },
+  },
+};
 </script>
