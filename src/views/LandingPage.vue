@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <div id="app">
+  <div>
+    <div id="nomenu">
       <v-app id="inspire">
       <home-banner></home-banner>
       <home-services></home-services>

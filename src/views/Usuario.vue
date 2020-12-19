@@ -1,5 +1,13 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+    <!-- Llamado al componente -->
+    <data-table-usu></data-table-usu>
 </template>
+
+<script>
+import DataTableUsu from '../components/DataTableUsu.vue'
+export default {
+    components:{
+        DataTableUsu
+    }
+}
+</script>

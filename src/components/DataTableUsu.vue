@@ -3,8 +3,8 @@
     <v-app id="inspire">
       <v-data-table
         :headers="headers"
-        :items="categorias"
-        sort-by="nombre"
+        :items="usuarios"
+        sort-by="id"
         class="elevation-1"
         :loading="cargando"
         loading-text="Cargando... por favor espere"
@@ -33,22 +33,20 @@
 
                 <v-card-text>
                   <v-container>
-                    <v-raw>
-                      <v-text-field
-                        v-model="editedItem.nombre"
-                        label="Nombre"
-                      ></v-text-field>
-                    </v-raw>
-                    <v-raw>
-                      <v-textarea
-                        outlined
-                        counter
-                        maxlength="254"
-                        hint="Por favor utilice un máximo de 254 palabras en su descripción"
-                        v-model="editedItem.descripcion"
-                        label="Descripción"
-                      ></v-textarea>
-                    </v-raw>
+                    <v-text-field
+                      v-model="editedItem.nombre"
+                      label="Nombre"
+                    ></v-text-field>
+
+                    <v-text-field
+                      v-model="editedItem.email"
+                      label="Correo Electrónico"
+                    ></v-text-field>
+
+                    <v-text-field
+                      v-model="editedItem.rol"
+                      label="Rol"
+                    ></v-text-field>
                   </v-container>
                 </v-card-text>
 
@@ -64,17 +62,18 @@
               </v-card>
             </v-dialog>
 
-            <v-dialog v-model="dialogDelete" max-width="500px">
+            <v-dialog v-model="dialogStateChange" max-width="500px">
               <v-card>
-                <v-card-title class="headline"
-                  >¿Está seguro que desea eliminar esta categoría?</v-card-title
-                >
+                <v-card-title class="headline">Cambio de Estado</v-card-title>
+                <v-card-text>
+                  ¿Está seguro que desea cambiar el estado de este usuario?
+                </v-card-text>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text @click="closeDelete"
+                  <v-btn color="blue darken-1" text @click="closeStateChange"
                     >Cancelar</v-btn
                   >
-                  <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                  <v-btn color="blue darken-1" text @click="stateChangeConfirm"
                     >Ok</v-btn
                   >
                   <v-spacer></v-spacer>
@@ -83,18 +82,27 @@
             </v-dialog>
           </v-toolbar>
         </template>
+
+        <template v-slot:item.activo="{ item }">
+          <v-switch
+            :input-value="item.estado"
+            @change="stateChangeItem(item)"
+            class="pa-3"
+          ></v-switch>
+        </template>
+
         <template v-slot:item.actions="{ item }">
-          <v-icon small class="mr-2" @click="editItem(item)">
+          <v-icon medium class="mr-2" @click="editItem(item)">
             mdi-pencil
           </v-icon>
-          <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
         </template>
+
         <template v-slot:no-data>
           <v-btn color="primary" @click="list"> Reset </v-btn>
         </template>
       </v-data-table>
     </v-app>
-    <pre>{{ $data.categorias }}</pre>
+    <!-- <pre>{{ $data.usuarios }}</pre> -->
   </div>
 </template>
 
@@ -103,35 +111,37 @@ import axios from "axios";
 export default {
   data: () => ({
     dialog: false,
-    dialogDelete: false,
+    dialogStateChange: false,
     cargando: true,
     headers: [
+      { text: "Activo", value: "activo", sortable: false },
       {
-        text: "Categorías",
+        text: "Usuario",
         align: "start",
         sortable: true,
         value: "nombre",
       },
-      { text: "Descripción", value: "descripcion" },
-      { text: "Estado", value: "estado" },
-      { text: "Acciones", value: "actions", sortable: false },
+      { text: "Correo Electrónico", value: "email" },
+      { text: "Rol", value: "rol" },
+      { text: "Editar", value: "actions", sortable: false },
     ],
-    desserts: [],
-    categorias: [],
+    usuarios: [],
     editedIndex: -1,
     editedItem: {
       nombre: "",
-      descripcion: "",
+      email: "",
+      rol: "",
     },
     defaultItem: {
+      email: "",
       nombre: "",
-      descripcion: "",
+      rol: "",
     },
   }),
 
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nueva Categoría" : "Editar Categoría";
+      return this.editedIndex === -1 ? "Nuevo Usuario" : "Editar Usuario";
     },
   },
 
@@ -139,8 +149,8 @@ export default {
     dialog(val) {
       val || this.close();
     },
-    dialogDelete(val) {
-      val || this.closeDelete();
+    dialogStateChange(val) {
+      val || this.closeStateChange();
     },
   },
 
@@ -151,9 +161,9 @@ export default {
   methods: {
     list() {
       axios
-        .get("http://localhost:3000/api/categoria/list")
+        .get("http://localhost:3000/api/usuario/list")
         .then((response) => {
-          this.categorias = response.data;
+          this.usuarios = response.data;
           this.cargando = false;
         })
         .catch((error) => {
@@ -161,22 +171,23 @@ export default {
         });
     },
     editItem(item) {
-      // this.editedIndex = this.categorias[indexOf(item)].id;
+      // this.editedIndex = this.usuarios[indexOf(item)].id;
       this.editedIndex = item.id;
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
-    deleteItem(item) {
-      // this.editedIndex = this.categorias[indexOf(item)].id;
+    stateChangeItem(item) {
+      // this.editedIndex = this.usuarios[indexOf(item)].id;
       this.editedIndex = item.id;
       this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
+      this.dialogStateChange = true;
     },
 
-    deleteItemConfirm() {
-      axios
-          .put("http://localhost:3000/api/categoria/update", {
-            estado: "0", 
+    stateChangeConfirm() {
+      if (this.editedItem.estado === 1) {
+        axios
+          .put("http://localhost:3000/api/usuario/deactivate", {
+            email: this.editedItem.email,
           })
           .then((response) => {
             this.list();
@@ -184,9 +195,19 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-
-      // this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
+      } else {
+        axios
+          .put("http://localhost:3000/api/usuario/activate", {
+            email: this.editedItem.email,
+          })
+          .then((response) => {
+            this.list();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      this.closeStateChange();
     },
 
     close() {
@@ -197,8 +218,8 @@ export default {
       });
     },
 
-    closeDelete() {
-      this.dialogDelete = false;
+    closeStateChange() {
+      this.dialogStateChange = false;
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
@@ -208,10 +229,10 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         axios
-          .put("http://localhost:3000/api/categoria/update", {
-            id: this.editedItem.id,
+          .put("http://localhost:3000/api/usuario/update", {
+            email: this.editedItem.email,
             nombre: this.editedItem.nombre,
-            descripcion: this.editedItem.descripcion,
+            rol: this.editedItem.rol,
           })
           .then((response) => {
             this.list();
@@ -219,12 +240,12 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-
       } else {
         axios
-          .post("http://localhost:3000/api/categoria/add", {
+          .post("http://localhost:3000/api/usuario/register", {
+            email: this.editedItem.email,
             nombre: this.editedItem.nombre,
-            descripcion: this.editedItem.descripcion,
+            rol: this.editedItem.rol,
           })
           .then((response) => {
             this.list();

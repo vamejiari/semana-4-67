@@ -1,13 +1,13 @@
 <template>
     <!-- Llamado al componente -->
-    <data-table></data-table>
+    <data-table-cat></data-table-cat>
 </template>
 
 <script>
-import DataTable from '../components/DataTable.vue' 
+import DataTableCat from '../components/DataTableCat.vue' 
 export default {
     components:{
-        DataTable
+        DataTableCat
     }
 }
 </script>

@@ -1,5 +1,13 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+    <!-- Llamado al componente -->
+    <data-table-art></data-table-art>
 </template>
+
+<script>
+import DataTableArt from '../components/DataTableArt.vue'
+export default {
+    components:{
+        DataTableArt
+    }
+}
+</script>
