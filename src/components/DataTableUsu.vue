@@ -102,7 +102,7 @@
         </template>
       </v-data-table>
     </v-app>
-    <!-- <pre>{{ $data.usuarios }}</pre> -->
+    <pre>{{ $data.usuarios }}</pre>
   </div>
 </template>
 
@@ -130,11 +130,13 @@ export default {
     editedItem: {
       nombre: "",
       email: "",
+      password: "",
       rol: "",
     },
     defaultItem: {
-      email: "",
       nombre: "",
+      email: "",
+      password: "",
       rol: "",
     },
   }),
@@ -231,6 +233,7 @@ export default {
         axios
           .put("http://localhost:3000/api/usuario/update", {
             email: this.editedItem.email,
+            password: this.editedItem.password,
             nombre: this.editedItem.nombre,
             rol: this.editedItem.rol,
           })
@@ -242,8 +245,9 @@ export default {
           });
       } else {
         axios
-          .post("http://localhost:3000/api/usuario/register", {
+          .post("http://localhost:3000/api/usuario/add", {
             email: this.editedItem.email,
+            password: this.editedItem.password,
             nombre: this.editedItem.nombre,
             rol: this.editedItem.rol,
           })

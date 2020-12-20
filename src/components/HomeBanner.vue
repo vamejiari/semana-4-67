@@ -1,6 +1,5 @@
 <template>
-  <!-- <div id="app"> -->
-    <!-- <v-app id="inspire"> -->
+
       <v-carousel
         cycle
         height="400"
@@ -15,8 +14,7 @@
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
-    <!-- </v-app> -->
-  <!-- </div> -->
+
 </template>
 
 <script>

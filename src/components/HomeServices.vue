@@ -1,6 +1,5 @@
 <template>
-  <!-- <div id="app"> -->
-    <!-- <v-app id="inspire"> -->
+
       <v-container class="grey lighten-4" fluid>
         <v-row>
           <v-spacer></v-spacer>
@@ -33,8 +32,7 @@
           </v-col>
         </v-row>
       </v-container>
-    <!-- </v-app> -->
-  <!-- </div> -->
+
 </template>
 
 <script>

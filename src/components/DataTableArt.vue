@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+
     <v-app id="inspire">
       <v-data-table
         :headers="headers"
@@ -44,7 +44,7 @@
                     ></v-text-field>
 
                     <v-select
-                      v-model="editedItem.categoria"
+                      v-model="categoria"
                       label="Seleccionar Categoría"
                       :items="categorias"
                       item-text="nombre"
@@ -114,9 +114,9 @@
           <v-btn color="primary" @click="list"> Reset </v-btn>
         </template>
       </v-data-table>
+      <!-- <pre>{{ $data.articulos }}</pre> -->
     </v-app>
-    <!-- <pre>{{ $data.articulos }}</pre> -->
-  </div>
+
 </template>
 
 <script>
@@ -208,7 +208,7 @@ export default {
     editItem(item) {
       // this.editedIndex = this.articulos[indexOf(item)].id;
       this.editedIndex = item.id;
-
+      this.categoria = item ? item.categoria:"";
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
@@ -251,6 +251,7 @@ export default {
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
+        this.categoria= "";
       });
     },
 
@@ -269,6 +270,7 @@ export default {
             id: this.editedItem.id,
             nombre: this.editedItem.nombre,
             codigo: this.editedItem.codigo,
+            categoriaId: this.categoria.id,
             descripcion: this.editedItem.descripcion,
           })
           .then((response) => {
@@ -282,6 +284,7 @@ export default {
           .post("http://localhost:3000/api/articulo/add", {
             nombre: this.editedItem.nombre,
             codigo: this.editedItem.codigo,
+            categoriaId: this.categoria.id,
             descripcion: this.editedItem.descripcion,
           })
           .then((response) => {
