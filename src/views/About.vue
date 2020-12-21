@@ -7,9 +7,20 @@
 <script>
 // @ is an alias to /src
 import MenuBar from '../components/MenuBar.vue';
+import store from "../store"
 export default {
   components: {
     MenuBar,
+  },
+  created(){
+    this.$store.dispatch("autoLogin");
+    if (this.$store.dispatch("autoLogin")) {
+      if (this.$store.state.user.rol === "Administrador") {
+        this.$router.push({ path: "/accesshome/profileadm" });
+      } else if (this.$store.state.user.rol === "Visitante") {
+        this.$router.push({ path: "/homevis" });
+      }
+    }
   },
 };
 </script>

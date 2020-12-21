@@ -3,6 +3,8 @@
     <v-app-bar app color="cyan" dark flat>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>¡Bienvenidx!</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn class="mr-5" color="primary" @click="salir()">Log out</v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" fixed temporary flat>
@@ -66,5 +68,10 @@ export default {
   data: () => ({
     drawer: null,
   }),
+  methods:{
+    salir(){
+      this.$store.dispatch("salir");
+    }
+  }
 };
 </script>

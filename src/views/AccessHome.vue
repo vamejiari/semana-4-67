@@ -11,6 +11,9 @@ import LateralMenu from "../components/LateralMenu.vue";
 export default {
     components:{
         LateralMenu,
-    }
+    },
+    created(){
+    this.$store.dispatch("autoLogin");
+  },
 }
 </script>

@@ -8,6 +8,9 @@ import DataTableUsu from '../components/DataTableUsu.vue'
 export default {
     components:{
         DataTableUsu
-    }
+    },
+    created(){
+    this.$store.dispatch("autoLogin");
+  },
 }
 </script>

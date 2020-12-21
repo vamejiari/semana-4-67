@@ -11,6 +11,9 @@ import ProfileCard from '../components/ProfileCard.vue'
 export default {
     components:{
         ProfileCard,
-    }
+    },
+    created(){
+    this.$store.dispatch("autoLogin");
+  },
 }
 </script>

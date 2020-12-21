@@ -6,7 +6,7 @@
 
       <v-tabs background-color="transparent" color="white" grow>
         <v-tab link to="/homevis">Home</v-tab>
-        <v-tab link to="/">Log out</v-tab>
+        <v-tab @click="salir">Log out</v-tab>
         <v-tab link to="/profilevis">Perfil</v-tab>
       </v-tabs>
     </v-card>
@@ -14,10 +14,12 @@
 
 <script>
 export default {
-    data() {
-      return{
-
-      }
+    data: () =>({
+    }),
+  methods:{
+    salir(){
+      this.$store.dispatch("salir");
     }
+  }
 }
 </script>

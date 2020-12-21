@@ -14,6 +14,9 @@ export default {
     components:{
         ProfileCard,
         MenuBarVis,
-    }
+    },
+    created(){
+    this.$store.dispatch("autoLogin");
+  },
 }
 </script>

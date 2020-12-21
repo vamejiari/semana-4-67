@@ -21,5 +21,8 @@ export default {
     HomeFooter,
     MenuBarVis,
   },
+  created(){
+    this.$store.dispatch("autoLogin");
+  },
 };
 </script>

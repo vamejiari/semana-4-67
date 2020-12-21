@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -46,21 +47,21 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "profilevis" */ "../views/ProfileVis.vue"),
     meta: {
-      public: true,
+      Visitante: true,
     },
   },
-    {
-      path: "/homevis",
-      name: "HomeVis",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "homevis" */ "../views/HomeVis.vue"),
-      meta: {
-        auth: true,
-      },
+  {
+    path: "/homevis",
+    name: "HomeVis",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "homevis" */ "../views/HomeVis.vue"),
+    meta: {
+      Visitante: true,
     },
+  },
   {
     path: "/accesshome",
     name: "AccessHome",
@@ -70,7 +71,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "accesshome" */ "../views/AccessHome.vue"),
     meta: {
-      auth: true,
+      Administrador: true,
     },
     children: [
       {
@@ -80,9 +81,11 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "profileadm" */ "../views/ProfileAdm.vue"),
+          import(
+            /* webpackChunkName: "profileadm" */ "../views/ProfileAdm.vue"
+          ),
         meta: {
-          auth: true,
+          Administrador: true,
         },
       },
       {
@@ -94,7 +97,7 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "categoria" */ "../views/Categoria.vue"),
         meta: {
-          auth: true,
+          Administrador: true,
         },
       },
       {
@@ -106,7 +109,7 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "articulo" */ "../views/Articulo.vue"),
         meta: {
-          auth: true,
+          Administrador: true,
         },
       },
       {
@@ -118,7 +121,7 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "usuario" */ "../views/Usuario.vue"),
         meta: {
-          auth: true,
+          Administrador: true,
         },
       },
     ],
@@ -131,4 +134,25 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.public)) {
+    next();
+  } else if (to.matched.some((record) => record.meta.Administrador)) {
+    if (store.state.user && store.state.user.rol === "Administrador") {
+      next();
+    } else if (store.state.user) {
+      next({ path: "/homevis" });
+    }else{
+      next({ path: "/login" });
+    }
+  } else if(to.matched.some((record) => record.meta.Visitante)){
+    if (store.state.user && store.state.user.rol === "Visitante") {
+      next();
+    }else if(store.state.user){
+      next({ path: "/accesshome/profileadm" });
+    }else{
+      next({ path: "/login" });
+    }
+  }
+});
 export default router;
