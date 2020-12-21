@@ -39,10 +39,8 @@
 <script>
 export default {
   name: "HomeFooter",
-  data() {
-      return{
+  data: () => ({
           icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
-      }
-  },
+  }),
 };
 </script>

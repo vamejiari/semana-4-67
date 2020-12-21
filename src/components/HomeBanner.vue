@@ -20,8 +20,7 @@
 <script>
 export default {
   name: "HomeBanner",
-  data() {
-    return {
+  data: () => ({
       colors: [
         "indigo",
         "warning",
@@ -30,7 +29,6 @@ export default {
         "deep-purple accent-4",
       ],
       slides: ["First", "Second", "Third", "Fourth", "Fifth"],
-    };
-  },
+  }),
 };
 </script>

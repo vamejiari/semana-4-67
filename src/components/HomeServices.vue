@@ -2,7 +2,7 @@
   <v-container class="grey lighten-4" fluid>
     <v-row>
       <v-spacer></v-spacer>
-      <v-col v-for="card in cards" :key="card" cols="12" sm="6" md="4">
+      <v-col v-for="card in cards" :key="card.id" cols="12" sm="6" md="4">
         <v-card>
           <v-img :src="`https://picsum.photos/200/300?image=${getImage()}`" height="300px">
             <div><span class="headline white--text pl-4 pt-4 d-inline-block" v-text="card.nombre"></span></div>

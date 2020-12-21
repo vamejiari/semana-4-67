@@ -31,14 +31,12 @@
 <script>
 import swal from "sweetalert";
 export default {
-  data() {
-    return {
+  data: () => ({
       login: {
         email: "",
         password: "",
       },
-    };
-  },
+  }),
   methods: {
       clean(){
         this.login.email="";
