@@ -102,7 +102,7 @@
         </template>
       </v-data-table>
     </v-app>
-    <pre>{{ $data.usuarios }}</pre>
+    <!-- <pre>{{ $data.usuarios }}</pre> -->
   </div>
 </template>
 

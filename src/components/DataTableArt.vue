@@ -114,7 +114,7 @@
           <v-btn color="primary" @click="list"> Reset </v-btn>
         </template>
       </v-data-table>
-      <pre>{{ $data.articulos }}</pre>
+      <!-- <pre>{{ $data.articulos }}</pre> -->
     </v-app>
 
 </template>
