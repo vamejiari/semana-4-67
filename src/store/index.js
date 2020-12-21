@@ -22,7 +22,7 @@ export default new Vuex.Store({
     guardarToken({commit}, token){
         commit("setToken", token);
         commit("setUsuario", jwtdecode(token));
-        localStorage.setItem("token", token)
+        localStorage.setItem("token", token);
     },
     autoLogin({commit}){
         const token = localStorage.getItem("token")
@@ -38,7 +38,7 @@ export default new Vuex.Store({
         commit("setToken", null);
         commit("setUsuario", null);
         localStorage.removeItem("token")
-        router.push({path: "/"})
-    }
+        router.push({path: "/login"})
+    },
   }
 })

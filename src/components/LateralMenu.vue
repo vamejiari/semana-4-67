@@ -22,9 +22,16 @@
 
         <v-divider></v-divider>
         <v-list>
-          <v-list-item link to="/accesshome/profileadm">
+          <v-list-item link to="/">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item link to="/accesshome/profileadm">
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
             <v-list-item-title>Perfil</v-list-item-title>
           </v-list-item>

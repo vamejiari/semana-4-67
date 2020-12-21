@@ -19,9 +19,9 @@ export default {
     this.$store.dispatch("autoLogin");
     if (localStorage.getItem('token')) {
       if (this.$store.state.user.rol === "Administrador") {
-        this.$router.push({ path: "/accesshome/profileadm" });
+        this.$router.push({ path: "/" });
       } else if (this.$store.state.user.rol === "Visitante") {
-        this.$router.push({ path: "/homevis" });
+        this.$router.push({ path: "/" });
       }
     }
   },

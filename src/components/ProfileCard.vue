@@ -4,10 +4,10 @@
       <v-list-item three-line>
         <v-list-item-content>
           <div class="overline mb-4">
-            ADMINISTRADOR
+            {{$store.state.user.rol}}
           </div>
-          <v-list-item-title class="headline mb-1">Nombre</v-list-item-title>
-          <v-list-item-subtitle>prueba@gmail.com</v-list-item-subtitle>
+          <v-list-item-title class="headline mb-1">{{this.usuarios[$store.state.user.id].nombre}}</v-list-item-title>
+          <v-list-item-subtitle>{{$store.state.user.email}}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-avatar tile size="120" color="grey"></v-list-item-avatar>
       </v-list-item>

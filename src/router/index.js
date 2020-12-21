@@ -51,18 +51,6 @@ const routes = [
     },
   },
   {
-    path: "/homevis",
-    name: "HomeVis",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "homevis" */ "../views/HomeVis.vue"),
-    meta: {
-      Visitante: true,
-    },
-  },
-  {
     path: "/accesshome",
     name: "AccessHome",
     // route level code-splitting
@@ -141,7 +129,7 @@ router.beforeEach((to, from, next) => {
     if (store.state.user && store.state.user.rol === "Administrador") {
       next();
     } else if (store.state.user) {
-      next({ path: "/homevis" });
+      next({ path: "/" });
     }else{
       next({ path: "/login" });
     }

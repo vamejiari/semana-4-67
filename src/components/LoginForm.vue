@@ -50,7 +50,7 @@ export default {
         })
         .then((data) => {
           this.$store.dispatch("guardarToken", data.tokenReturn);
-          this.$router.push({ path: "/accesshome/profileadm" });
+          this.$router.push({ path: "/" });
           swal("Great!", "Welcome back :D", "success");
         })
         .catch((error) => {
