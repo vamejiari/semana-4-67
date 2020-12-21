@@ -1,7 +1,7 @@
 <template>
 
       <v-footer dark padless>
-        <v-card flat tile class="indigo lighten-1 white--text text-center">
+        <v-card color="#293364" flat tile class=" white--text text-center">
           <v-card-text>
             <v-btn
               v-for="icon in icons"
@@ -29,7 +29,7 @@
           <v-divider></v-divider>
 
           <v-card-text class="white--text">
-            {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+            {{ new Date().getFullYear() }}
           </v-card-text>
         </v-card>
       </v-footer>

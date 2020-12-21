@@ -1,4 +1,13 @@
 <template>
+<div class="mt-5">
+      <v-alert
+        border="top"
+        colored-border
+        elevation="2"
+        color="#3A1C71"
+      >
+        Vestibulum ullamcorper mauris at ligula. Nam pretium turpis et arcu. Ut varius tincidunt libero. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Morbi nec metus.
+      </v-alert>
 
       <v-container class="grey lighten-4" fluid>
         <v-row>
@@ -32,6 +41,8 @@
           </v-col>
         </v-row>
       </v-container>
+    </div>
+      
 
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <v-card color="cyan" dark flat>
+    <v-card color="#293364" dark flat>
       <v-card-title class="text-center justify-center py-6">
         <h1 class="font-weight-bold display-3 basil--text">EquiPo 67</h1>
       </v-card-title>

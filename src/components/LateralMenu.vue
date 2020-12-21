@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app color="cyan" dark flat>
+    <v-app-bar app color="#293364" dark flat>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>¡Bienvenidx!</v-toolbar-title>
     </v-app-bar>

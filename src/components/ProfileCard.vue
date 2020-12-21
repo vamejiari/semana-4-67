@@ -9,7 +9,10 @@
           <v-list-item-title class="headline mb-1">Nombre</v-list-item-title>
           <v-list-item-subtitle>prueba@gmail.com</v-list-item-subtitle>
         </v-list-item-content>
-        <v-list-item-avatar tile size="120" color="grey"></v-list-item-avatar>
+        <img
+          src="../../public/resources/perfil.png"
+          width="40%"
+        >
       </v-list-item>
     </v-card>
   </v-app>
